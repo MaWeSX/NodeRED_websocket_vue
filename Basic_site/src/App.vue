@@ -10,11 +10,11 @@
   <div class="custom-button" v-on:click="">
     <i class="icon-lightbulb icon-4x"></i><p class="Name">Office</p>
   </div>
-  <div class="custom-button" v-on:click="">
-    <i class="icon-lightbulb icon-4x"></i>{{ getPayloadValue('1/3/0') }}
+  <div class="custom-button" v-on:click="showValue('1/3/0')">
+    <i class="icon-lightbulb icon-4x"></i><span class="value-display">{{ getPayloadValue('1/3/0') }}</span>
   </div>
   <div class="custom-button" v-on:click="showValue('1/3/0')">
-    <i class="icon-lightbulb icon-4x"></i>{{ getPayloadValue('1/3/0') }}
+    <i class="icon-lightbulb icon-4x"></i><span class="value-display">{{ getPayloadValue('1/3/0') }}</span>
   </div>
 </div>
 </template>
@@ -50,7 +50,7 @@ export default {
     showValue: function (address) {
       // Update the content of the custom-button div with the value of item.address = "1/3/0"
       const value = this.getPayloadValue(address);
-      document.querySelector('.custom-button').textContent = value;
+      document.querySelector('.custom-button .value-display').textContent = value;
       console.log('Div hit with: ', value);
     },
     getPayloadValue: function (address) {
