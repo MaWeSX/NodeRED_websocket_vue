@@ -4,14 +4,17 @@
 
 <template>
 <div class="hero">
+  <div class="custom-button" v-on:click="">
+    <i class="icon-lightbulb icon-4x"></i><p class="Name">Office</p>
+  </div>
+  <div class="custom-button" v-on:click="">
+    <i class="icon-lightbulb icon-4x"></i><p class="Name">Office</p>
+  </div>
+  <div class="custom-button" v-on:click="">
+    <i class="icon-lightbulb icon-4x"></i>{{ getPayloadValue('1/3/0') }}
+  </div>
   <div class="custom-button" v-on:click="showValue('1/3/0')">
-    <i class="icon-lightbulb icon-4x"></i>
-  </div>
-  <div class="custom-button" v-on:click="showValue('1/1/0')">
-    <i class="icon-lightbulb icon-4x"></i>{{ getPayloadValue('1/1/0') }}
-  </div>
-  <div class="custom-button" v-on:click="showValue('1/5/0')">
-    <i class="icon-lightbulb icon-4x"></i>{{ getPayloadValue('1/5/0') }}
+    <i class="icon-lightbulb icon-4x"></i>{{ getPayloadValue('1/3/0') }}
   </div>
 </div>
 </template>
@@ -82,11 +85,15 @@ export default {
 
 <style scoped>
 
+.Name {
+  text-align: center;
+  margin: 10px;
+}
+
 [class="icon-lightbulb icon-4x"] {
   display: inline-block;
   width: 100%;
   margin: auto;
-  line-height: 1.5;
   text-align: center;
 }
 .hero {
@@ -113,7 +120,6 @@ export default {
   border-radius: 15px;
   box-shadow: 3px 3px 10px 1px;
 }
-
 .custom-button:hover {
   background-color: rgba(255,255,255,0.2);
 }
