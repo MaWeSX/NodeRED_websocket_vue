@@ -4,15 +4,6 @@ import CustomButtonLight from './components/CustomButtonLight.vue'
 
 <template>
   <div class="hero">
-    <div class="custom-button"
-      v-on:click="getPayloadValue('1/4/6') > 0 ? showValue(false, '1/0/7') : showValue(true, '1/0/7')">
-      <i class="icon-lightbulb icon-4x" :class="getPayloadValue('1/4/6') > 0 ? 'green' : 'red'"></i>
-      <p class="Name">{{ getPayloadName('1/0/7') }}
-        <span ref="span_1_0_7">
-          {{ getPayloadValue('1/4/6') }}
-        </span>
-      </p>
-    </div>
     <CustomButtonLight addressValue="1/4/8" addressName="1/0/13" :getPayloadValueFunc="getPayloadValue"
       :getPayloadNameFunc="getPayloadName" :showValueFunc="showValue" />
     <CustomButtonLight addressValue="1/4/6" addressName="1/0/7" :getPayloadValueFunc="getPayloadValue"
@@ -97,19 +88,6 @@ export default {
 </script>
 
 <style scoped>
-.Name {
-  text-align: center;
-  margin: 10px;
-}
-
-[class="icon-lightbulb icon-4x"] {
-  display: inline-block;
-  width: 100%;
-  margin: auto;
-  color: lightcoral;
-  text-align: center;
-}
-
 .hero {
   justify-content: space-around;
   align-content: space-around;
@@ -121,31 +99,5 @@ export default {
   border-radius: 15px;
   padding: 32px;
   backdrop-filter: blur(10px);
-}
-
-.custom-button {
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 30px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 120px;
-  height: 120px;
-  border-radius: 15px;
-  box-shadow: 3px 3px 10px 1px;
-}
-
-.custom-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.green {
-  color: greenyellow;
-}
-
-.red {
-  color: red;
 }
 </style>
