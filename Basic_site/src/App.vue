@@ -4,17 +4,11 @@
 
 <template>
 <div class="hero">
-  <div class="custom-button" v-on:click="">
-    <i class="icon-lightbulb icon-4x"></i><p class="Name">Office</p>
+  <div class="custom-button" v-on:click="showValue('1/0/7')">
+    <i class="icon-lightbulb icon-4x green"></i><p class="Name">{{getPayloadName('1/0/7') }}<span class="value-display">{{ getPayloadValue('1/4/6') }}</span></p>
   </div>
-  <div class="custom-button" v-on:click="">
-    <i class="icon-lightbulb icon-4x"></i><p class="Name">Office</p>
-  </div>
-  <div class="custom-button" v-on:click="showValue('1/3/0')">
-    <i class="icon-lightbulb icon-4x"></i><span class="value-display">{{ getPayloadValue('1/3/0') }}</span>
-  </div>
-  <div class="custom-button" v-on:click="showValue('1/3/0')">
-    <i class="icon-lightbulb icon-4x"></i><span class="value-display">{{ getPayloadValue('1/3/0') }}</span>
+  <div class="custom-button" v-on:click="showValue('1/0/13')">
+    <i class="icon-lightbulb icon-4x green"></i><p class="Name">{{getPayloadName('1/0/13') }}<span class="value-display">{{ getPayloadValue('1/4/8') }}</span></p>
   </div>
 </div>
 </template>
@@ -37,21 +31,20 @@ export default {
       const jsonString = JSON.stringify(messageObject);
       this.connection.send(jsonString);
     },
-    updateValue: function (address) {
-      // Assuming the item for address "1/3/0" exists in payloadData
-      const item1_3_0 = this.payloadData.find((item) => item.address === "1/3/0");
-      if (item1_3_0) {
-        // Modify the payload of item1_3_0 based on your requirements
-        // For example, toggling the value between true and false
-        item1_3_0.payload = !item1_3_0.payload;
-        console.log('Button hit');
-      };
-    },
+    // updateValue: function (address) {
+    //   // Assuming the item for address "1/3/0" exists in payloadData
+    //   const item1_3_0 = this.payloadData.find((item) => item.address === "1/3/0");
+    //   if (item1_3_0) {
+    //     item1_3_0.payload = !item1_3_0.payload;
+    //     console.log('Button hit');
+    //   };
+    // },
     showValue: function (address) {
       // Update the content of the custom-button div with the value of item.address = "1/3/0"
       const value = this.getPayloadValue(address);
       document.querySelector('.custom-button .value-display').textContent = value;
-      console.log('Div hit with: ', value);
+      this.sendMessage(false,address)
+      console.log('Div hit with: ', address, false);
     },
     getPayloadValue: function (address) {
       // Assuming the item for address "1/3/0" exists in payloadData
@@ -59,6 +52,15 @@ export default {
       if (item_x) {
         //console.log('Value found for: '& item_x)
         return item_x.payload;
+      }
+      return ''; // Return an empty string if the item is not found
+    },
+    getPayloadName: function (address) {
+      // Assuming the item for address "1/3/0" exists in payloadData
+      const item_x = this.payloadData.find((item) => item.address === address);
+      if (item_x) {
+        //console.log('Value found for: '& item_x)
+        return item_x.devicename ;
       }
       return ''; // Return an empty string if the item is not found
     },
@@ -94,6 +96,7 @@ export default {
   display: inline-block;
   width: 100%;
   margin: auto;
+  --color: lightcoral;
   text-align: center;
 }
 .hero {
@@ -123,4 +126,13 @@ export default {
 .custom-button:hover {
   background-color: rgba(255,255,255,0.2);
 }
+
+.green {
+  color:greenyellow;
+}
+
+.red {
+  color:red;
+}
+
 </style>
