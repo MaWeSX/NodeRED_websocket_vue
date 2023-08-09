@@ -1,34 +1,29 @@
 <script setup>
-
+import CustomButtonLight from './components/CustomButtonLight.vue'
 </script>
 
 <template>
-<div class="hero">
-  <div class="custom-button" v-on:click="getPayloadValue('1/4/6')>0 ? showValue(false,'1/0/7') : showValue(true,'1/0/7')">
-    <i class="icon-lightbulb icon-4x" :class="getPayloadValue('1/4/6')>0 ? 'green' : 'red'"></i>
-      <p class="Name">{{getPayloadName('1/0/7') }}
-        <span 
-          class="Button1" 
-          :class="getPayloadName('1/0/7')"
-        >
+  <div class="hero">
+    <div class="custom-button"
+      v-on:click="getPayloadValue('1/4/6') > 0 ? showValue(false, '1/0/7') : showValue(true, '1/0/7')">
+      <i class="icon-lightbulb icon-4x" :class="getPayloadValue('1/4/6') > 0 ? 'green' : 'red'"></i>
+      <p class="Name">{{ getPayloadName('1/0/7') }}
+        <span ref="span_1_0_7">
           {{ getPayloadValue('1/4/6') }}
         </span>
       </p>
+    </div>
+    <CustomButtonLight addressValue="1/4/8" addressName="1/0/13" :getPayloadValueFunc="getPayloadValue"
+      :getPayloadNameFunc="getPayloadName" :showValueFunc="showValue" />
+    <CustomButtonLight addressValue="1/4/6" addressName="1/0/7" :getPayloadValueFunc="getPayloadValue"
+      :getPayloadNameFunc="getPayloadName" :showValueFunc="showValue" />
+    <CustomButtonLight addressValue="1/4/5" addressName="1/0/6" :getPayloadValueFunc="getPayloadValue"
+      :getPayloadNameFunc="getPayloadName" :showValueFunc="showValue" />
+    <CustomButtonLight addressValue="1/4/10" addressName="1/0/14" :getPayloadValueFunc="getPayloadValue"
+      :getPayloadNameFunc="getPayloadName" :showValueFunc="showValue" />
+    <CustomButtonLight addressValue="1/4/7" addressName="1/0/8" :getPayloadValueFunc="getPayloadValue"
+      :getPayloadNameFunc="getPayloadName" :showValueFunc="showValue" />
   </div>
-  <div class="custom-button" v-on:click="getPayloadValue('1/4/8')>0 ? showValue(false,'1/0/13') : showValue(true,'1/0/13')">
-    <i class="icon-lightbulb icon-4x" 
-      :class="getPayloadValue('1/4/8')>0 ? 'green' : 'red'">
-    </i>
-    <p class="Name">
-      {{getPayloadName('1/0/13') }}
-      <span class="Button2" 
-        :class="getPayloadName('1/4/8')"
-      >
-      {{ getPayloadValue('1/4/8') }}
-      </span>
-    </p>
-  </div>
-</div>
 </template>
 
 <script>
@@ -49,12 +44,17 @@ export default {
       const jsonString = JSON.stringify(messageObject);
       this.connection.send(jsonString);
     },
-    showValue: function (value_send,address) {
+    showValue: function (value_send, address) {
       // Update the content of the custom-button div with the value of address
       const value = this.getPayloadValue(address);
-      document.querySelector('.custom-button .Button2').textContent = value;
-      //document.querySelector('[class=${CSS.escape(value)}]').textContent = value;
-      this.sendMessage(value_send,address)
+      const refName = "span_" + address.replace(/\//g, '_');
+      console.log(refName);
+      if (this.$refs[refName]) {
+        this.$refs[refName].textContent = value;
+      } else {
+        console.error("Element with ref", refName, "was not found!");
+      }
+      this.sendMessage(value_send, address)
       console.log('Div hit with: ', address, value_send);
     },
     getPayloadValue: function (address) {
@@ -71,7 +71,7 @@ export default {
       if (item_x) {
         //cut down name to functional length
         var str = item_x.devicename;
-        return str.split(")").pop() ;
+        return str.split(")").pop();
       }
       return ''; // Return an empty string if the item is not found
     },
@@ -97,7 +97,6 @@ export default {
 </script>
 
 <style scoped>
-
 .Name {
   text-align: center;
   margin: 10px;
@@ -107,26 +106,29 @@ export default {
   display: inline-block;
   width: 100%;
   margin: auto;
-  --color: lightcoral;
+  color: lightcoral;
   text-align: center;
 }
+
 .hero {
   justify-content: space-around;
   align-content: space-around;
   display: flex;
   color: #fff;
   margin: 40px auto;
-  background-color: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   padding: 32px;
   backdrop-filter: blur(10px);
 }
+
 .custom-button {
   padding: 10px;
   border: 1px solid #ccc;
   margin-bottom: 30px;
   cursor: pointer;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 120px;
@@ -134,16 +136,16 @@ export default {
   border-radius: 15px;
   box-shadow: 3px 3px 10px 1px;
 }
+
 .custom-button:hover {
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .green {
-  color:greenyellow;
+  color: greenyellow;
 }
 
 .red {
-  color:red;
+  color: red;
 }
-
 </style>
