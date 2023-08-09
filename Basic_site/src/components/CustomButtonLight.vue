@@ -1,7 +1,7 @@
 <!-- CustomButtonLight.vue -->
 <template>
   <div class="custom-button" @click="handleClick">
-    <span class="background-value">{{ getPayloadValue }}</span>
+    <span class="background-value">{{ getPayloadValue }} %</span>
     <i class="icon-lightbulb icon-4x" :class="getPayloadValue > 0 ? 'green' : 'red'"></i>
     <p class="Name">
     <p class="Name">{{ getPayloadName }}</p>
@@ -66,8 +66,15 @@ export default {
   /* To center the icon and name horizontally */
   justify-content: center;
   /* To center the icon vertically */
-  padding: 20px;
-  /* Adjust as needed */
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 30px;
+  cursor: pointer;
+  width: 180px;
+  height: 180px;
+  border-radius: 15px;
+  box-shadow: 3px 3px 10px 1px;
+
 }
 
 .custom-button:hover .Name {
@@ -75,12 +82,19 @@ export default {
   /* Zeigt den gesamten Text beim Hover an */
   white-space: normal;
   /* Erlaubt Textumbruch */
+
 }
+
+.custom-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
 
 .Name {
   font-size: 14px;
   margin-top: 10px;
   max-height: 14px;
+  text-align: center;
   /* Dies entspricht der Schriftgröße, um nur eine Zeile anzuzeigen */
   overflow: hidden;
   /* Überschüssigen Text ausblenden */
@@ -92,7 +106,7 @@ export default {
 
 .background-value {
   position: absolute;
-  top: 0;
+  top: 15;
   left: 0;
   right: 0;
   bottom: 0;

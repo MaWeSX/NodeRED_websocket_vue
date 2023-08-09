@@ -38,13 +38,6 @@ export default {
     showValue: function (value_send, address) {
       // Update the content of the custom-button div with the value of address
       const value = this.getPayloadValue(address);
-      const refName = "span_" + address.replace(/\//g, '_');
-      console.log(refName);
-      if (this.$refs[refName]) {
-        this.$refs[refName].textContent = value;
-      } else {
-        console.error("Element with ref", refName, "was not found!");
-      }
       this.sendMessage(value_send, address)
       console.log('Div hit with: ', address, value_send);
     },
@@ -57,7 +50,7 @@ export default {
       return '';
     },
     getPayloadName: function (address) {
-      // Assuming the item for address "1/3/0" exists in payloadData
+      // Assuming the item for address exists in payloadData
       const item_x = this.payloadData.find((item) => item.address === address);
       if (item_x) {
         //cut down name to functional length
