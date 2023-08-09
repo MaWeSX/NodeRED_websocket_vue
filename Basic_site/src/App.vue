@@ -4,11 +4,29 @@
 
 <template>
 <div class="hero">
-  <div class="custom-button" v-on:click="showValue('1/0/7')">
-    <i class="icon-lightbulb icon-4x green"></i><p class="Name">{{getPayloadName('1/0/7') }}<span class="value-display">{{ getPayloadValue('1/4/6') }}</span></p>
+  <div class="custom-button" v-on:click="getPayloadValue('1/4/6')>0 ? showValue(false,'1/0/7') : showValue(true,'1/0/7')">
+    <i class="icon-lightbulb icon-4x" :class="getPayloadValue('1/4/6')>0 ? 'green' : 'red'"></i>
+      <p class="Name">{{getPayloadName('1/0/7') }}
+        <span 
+          class="Button1" 
+          :class="getPayloadName('1/0/7')"
+        >
+          {{ getPayloadValue('1/4/6') }}
+        </span>
+      </p>
   </div>
-  <div class="custom-button" v-on:click="showValue('1/0/13')">
-    <i class="icon-lightbulb icon-4x green"></i><p class="Name">{{getPayloadName('1/0/13') }}<span class="value-display">{{ getPayloadValue('1/4/8') }}</span></p>
+  <div class="custom-button" v-on:click="getPayloadValue('1/4/8')>0 ? showValue(false,'1/0/13') : showValue(true,'1/0/13')">
+    <i class="icon-lightbulb icon-4x" 
+      :class="getPayloadValue('1/4/8')>0 ? 'green' : 'red'">
+    </i>
+    <p class="Name">
+      {{getPayloadName('1/0/13') }}
+      <span class="Button2" 
+        :class="getPayloadName('1/4/8')"
+      >
+      {{ getPayloadValue('1/4/8') }}
+      </span>
+    </p>
   </div>
 </div>
 </template>
@@ -31,36 +49,29 @@ export default {
       const jsonString = JSON.stringify(messageObject);
       this.connection.send(jsonString);
     },
-    // updateValue: function (address) {
-    //   // Assuming the item for address "1/3/0" exists in payloadData
-    //   const item1_3_0 = this.payloadData.find((item) => item.address === "1/3/0");
-    //   if (item1_3_0) {
-    //     item1_3_0.payload = !item1_3_0.payload;
-    //     console.log('Button hit');
-    //   };
-    // },
-    showValue: function (address) {
-      // Update the content of the custom-button div with the value of item.address = "1/3/0"
+    showValue: function (value_send,address) {
+      // Update the content of the custom-button div with the value of address
       const value = this.getPayloadValue(address);
-      document.querySelector('.custom-button .value-display').textContent = value;
-      this.sendMessage(false,address)
-      console.log('Div hit with: ', address, false);
+      document.querySelector('.custom-button .Button2').textContent = value;
+      //document.querySelector('[class=${CSS.escape(value)}]').textContent = value;
+      this.sendMessage(value_send,address)
+      console.log('Div hit with: ', address, value_send);
     },
     getPayloadValue: function (address) {
       // Assuming the item for address "1/3/0" exists in payloadData
       const item_x = this.payloadData.find((item) => item.address === address);
       if (item_x) {
-        //console.log('Value found for: '& item_x)
         return item_x.payload;
       }
-      return ''; // Return an empty string if the item is not found
+      return '';
     },
     getPayloadName: function (address) {
       // Assuming the item for address "1/3/0" exists in payloadData
       const item_x = this.payloadData.find((item) => item.address === address);
       if (item_x) {
-        //console.log('Value found for: '& item_x)
-        return item_x.devicename ;
+        //cut down name to functional length
+        var str = item_x.devicename;
+        return str.split(")").pop() ;
       }
       return ''; // Return an empty string if the item is not found
     },
