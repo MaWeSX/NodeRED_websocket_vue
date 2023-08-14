@@ -4,8 +4,6 @@
     <span class="background-value">{{ getPayloadValue }} %</span>
     <p class="Name">{{ getPayloadName }}</p>
     <i class="icon-lightbulb icon-4x button" :class="getPayloadValue > 0 ? 'green' : 'red'"></i>
-
-
     <span :ref="refName">
     </span>
 
