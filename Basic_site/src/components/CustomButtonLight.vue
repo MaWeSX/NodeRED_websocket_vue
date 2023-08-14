@@ -2,12 +2,13 @@
 <template>
   <div class="custom-button" @click="handleClick">
     <span class="background-value">{{ getPayloadValue }} %</span>
-    <i class="icon-lightbulb icon-4x" :class="getPayloadValue > 0 ? 'green' : 'red'"></i>
-    <p class="Name">
     <p class="Name">{{ getPayloadName }}</p>
+    <i class="icon-lightbulb icon-4x button" :class="getPayloadValue > 0 ? 'green' : 'red'"></i>
+
+
     <span :ref="refName">
     </span>
-    </p>
+
   </div>
 </template>
 
@@ -89,16 +90,20 @@ export default {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+.button {
+  margin-bottom: 10px;
+}
+
 
 .Name {
-  font-size: 14px;
-  margin-top: 10px;
-  max-height: 14px;
+  font-size: 15px;
+  margin: -10px 10px 10px 10px;
+  max-height: 20px;
   text-align: center;
   /* Dies entspricht der Schriftgröße, um nur eine Zeile anzuzeigen */
   overflow: hidden;
   /* Überschüssigen Text ausblenden */
-  white-space: nowrap;
+  /* white-space: nowrap; */
   /* Verhindert, dass der Text umgebrochen wird */
   text-overflow: ellipsis;
   /* Fügt "..." am Ende des sichtbaren Textes hinzu */
